@@ -1,28 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>{{ count }}</p>
+    <button @click="openMyModal">モーダルを表示する</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { openModal } from './openModal'
+import ModalContent from './components/ModalContent.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  methods: {
+    openMyModal() {
+      openModal(
+        ModalContent,
+        { info: 'モーダルに表示する内容' },
+        this,
+        { animation: 'fade' }
+      )
+      .catch((e) => {
+        console.log(e)
+      })
+    },
+    incrementCount() {
+      this.count += 1;
+    },
+  },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
